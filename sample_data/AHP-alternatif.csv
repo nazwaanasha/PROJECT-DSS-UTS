@@ -1,0 +1,16 @@
+Kode Alternatif,A01,A02,A03,Nama Alternatif, Kriteria,
+A01,1.0,3.0,3.0,Lokasi 1,C1
+A02,0.333,1.0,2.0,Lokasi 2,C1
+A03,0.333,0.5,1.0,Lokasi 3,C1
+A01,1.0,2.0,4.0,Lokasi 1,C2
+A02,0.5,1.0,3.0,Lokasi 2,C2
+A03,0.25,0.333,1.0,Lokasi 3,C2
+A01,1.0,2.0,1.0,Lokasi 1,C3
+A02,0.5,1.0,2.0,Lokasi 2,C3
+A03,1.0,0.5,1.0,Lokasi 3,C3
+A01,1.0,2.0,3.0,Lokasi 1,C4
+A02,0.5,1.0,6.0,Lokasi 2,C4
+A03,0.333,0.167,1.0,Lokasi 3,C4
+A01,1.0,4.0,3.0,Lokasi 1,C5
+A02,0.25,1.0,2.0,Lokasi 2,C5
+A03,0.333,0.5,1.0,Lokasi 3,C5

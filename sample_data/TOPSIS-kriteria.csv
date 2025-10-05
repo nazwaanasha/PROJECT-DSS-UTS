@@ -1,0 +1,5 @@
+Kode Kriteria,Bobot,Nama Kriteria,Atribut
+C1,0.4,Harga,cost
+C2,0.3,Kualitas,benefit
+C3,0.2,Layanan purna jual,benefit
+C4,0.1,Pengiriman,benefit
