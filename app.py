@@ -265,6 +265,114 @@ def calculate_wp(criteria, alternatives):
 # ============================
 # AHP CALCULATION
 # ============================
+def calculate_ahp(df_kriteria, df_alternatif):
+    steps = []
+    # ==============================
+    # 🧩 Normalisasi Nama Kolom
+    # ==============================
+    df_kriteria.columns = [str(c).strip() for c in df_kriteria.columns]
+    df_alternatif.columns = [str(c).strip() for c in df_alternatif.columns]
+
+    if 'Kriteria' not in df_alternatif.columns:
+        raise ValueError("Kolom 'Kriteria' tidak ditemukan di file AHP-alternatif.csv. Pastikan nama kolomnya persis 'Kriteria'.")
+
+    # ==============================
+    # 1️⃣ Matriks Perbandingan Kriteria
+    # ==============================
+    try:
+        crit_cols = [c for c in df_kriteria.columns if c.lower().startswith("c")]
+        crit_index = df_kriteria["Kode Kriteria"].values
+        mat_kriteria = df_kriteria[crit_cols].to_numpy(dtype=float)
+        kriteria_matrix = pd.DataFrame(mat_kriteria, index=crit_index, columns=crit_cols)
+        steps.append(("Matriks Perbandingan Kriteria", kriteria_matrix))
+    except Exception as e:
+        raise ValueError(f"Format file AHP-Kriteria tidak valid: {e}")
+
+    # Normalisasi dan bobot kriteria
+    col_sums = kriteria_matrix.sum(axis=0)
+    norm_matrix = kriteria_matrix / col_sums
+    weights = norm_matrix.mean(axis=1)
+    steps.append(("Normalisasi Matriks Kriteria", norm_matrix))
+    steps.append(("Bobot Kriteria", pd.DataFrame(weights, columns=['Bobot'])))
+
+    # Cek konsistensi
+    n = len(kriteria_matrix)
+    lambda_max = (col_sums * weights).sum()
+    CI = (lambda_max - n) / (n - 1)
+    RI_table = {1: 0.00, 2: 0.00, 3: 0.58, 4: 0.90, 5: 1.12, 6: 1.24, 7: 1.32, 8: 1.41, 9: 1.45, 10: 1.49}
+    RI = RI_table.get(n, 1.49)
+    CR = CI / RI if RI != 0 else 0
+    steps.append(("Uji Konsistensi Kriteria", pd.DataFrame({
+        'λ maks': [lambda_max],
+        'CI': [CI],
+        'CR': [CR],
+        'Konsisten': ['Ya' if CR < 0.1 else 'Tidak']
+    })))
+
+    # ==============================
+    # 2️⃣ Matriks Perbandingan Alternatif per Kriteria
+    # ==============================
+    alt_scores = {}
+    for crit in df_alternatif['Kriteria'].unique():
+        df_block = df_alternatif[df_alternatif['Kriteria'] == crit]
+
+        # Ambil hanya kolom Axx
+        alt_cols = [c for c in df_block.columns if c.lower().startswith("a")]
+        alt_ids = df_block['Kode Alternatif'].values
+
+        # Pastikan matriks persegi
+        if len(alt_ids) != len(alt_cols):
+            raise ValueError(f"Jumlah baris dan kolom pada kriteria {crit} tidak seimbang. Pastikan matriks persegi.")
+
+        mat_alt = df_block[alt_cols].to_numpy(dtype=float)
+        alt_matrix = pd.DataFrame(mat_alt, index=alt_ids, columns=alt_cols)
+        steps.append((f"Matriks Perbandingan Alternatif ({crit})", alt_matrix))
+
+        # Normalisasi kolom & hitung bobot rata-rata
+        col_sum = alt_matrix.sum(axis=0)
+        norm = alt_matrix / col_sum
+        w_alt = norm.mean(axis=1)
+
+        steps.append((f"Normalisasi & Bobot Alternatif ({crit})", pd.DataFrame({
+            "Normalisasi": norm.mean(axis=1),
+            "Bobot": w_alt
+        })))
+
+        alt_scores[crit] = w_alt
+
+# ==============================
+# 3️⃣ Hitung Skor Global (menggunakan bobot kriteria dari langkah 1)
+# ==============================
+    all_alts = sorted(set(df_alternatif['Kode Alternatif']))
+    result = pd.DataFrame(index=all_alts)
+
+    # Gabungkan bobot alternatif untuk setiap kriteria
+    for crit in alt_scores:
+        result[crit] = alt_scores[crit].reindex(result.index, fill_value=0)
+
+    # Samakan label nama (misal C01 -> C1)
+    weights.index = [i.replace("C0", "C") for i in weights.index]
+    result.columns = [c.replace("C0", "C") for c in result.columns]
+
+    # Pastikan hanya kolom yang sesuai antara bobot alternatif dan bobot kriteria
+    common_cols = [c for c in result.columns if c in weights.index]
+    if not common_cols:
+        raise ValueError("Tidak ada kriteria yang cocok antara bobot kriteria dan hasil alternatif.")
+
+    # ✅ Hitung Skor Akhir berdasarkan bobot kriteria (hasil dari tahap kriteria)
+    result["Skor Akhir"] = 0.0
+    for c in common_cols:
+        result["Skor Akhir"] += result[c] * weights[c]
+
+    # Tambahkan langkah perhitungan bobot kriteria (rata-rata dari tahap kriteria)
+    steps.append(("Rata-rata Bobot Kriteria (dari langkah 1)", pd.DataFrame(weights, columns=["Rata-rata Kriteria"])))
+
+    # Urutkan hasil akhir berdasarkan skor
+    result = result.sort_values("Skor Akhir", ascending=False)
+    result["Ranking"] = np.arange(1, len(result) + 1)
+
+    steps.append(("Hasil Akhir AHP", result))
+    return steps, result.reset_index().rename(columns={'index': 'Alternatif'})
 
 # ============================
 # TOPSIS CALCULATION
@@ -378,43 +486,89 @@ def main():
 
     if input_method == "Upload File (CSV/XLSX)":
         st.subheader("📁 Upload File")
-        st.info("""
-        **Format File yang Direkomendasikan:**
-        - **File Alternatif:** `Kode Alternatif`, `C1`, `C2`, ..., `Nama Alternatif`
-        - **File Kriteria:** `Kode Kriteria`, `Bobot`, `Nama Kriteria`, `Atribut` (cost/benefit)
-        
-        Anda dapat mengunggah satu file Excel (dengan sheet terpisah) atau beberapa file CSV sekaligus.
-        """)
+
+        # Tampilkan info format berdasarkan metode
+        if "Analytical Hierarchy Process (AHP)" in method:
+            st.warning("""
+            ⚠️ **Untuk metode AHP**, Anda perlu mengunggah dua file:
+            1️⃣ `ahp-kriteria.csv` → matriks perbandingan antar kriteria  
+            2️⃣ `ahp-alternatif.csv` → matriks perbandingan antar alternatif per kriteria
+            """)
+        else:
+            st.info("""
+            **Format File yang Direkomendasikan:**
+            - **File Alternatif:** `Kode Alternatif`, `C1`, `C2`, ..., `Nama Alternatif`
+            - **File Kriteria:** `Kode Kriteria`, `Bobot`, `Nama Kriteria`, `Atribut` (cost/benefit)
+            
+            Anda dapat mengunggah satu file Excel (dengan sheet terpisah) atau beberapa file CSV sekaligus.
+            """)
+
         uploaded_files = st.file_uploader("Pilih file CSV atau XLSX", type=['csv', 'xlsx', 'xls'], accept_multiple_files=True)
 
         if uploaded_files:
             df_criteria, df_alternatives = None, None
+
             for f in uploaded_files:
                 try:
                     df_temp = pd.read_excel(f) if f.name.lower().endswith(('.xls', '.xlsx')) else pd.read_csv(f)
-                    if is_criteria_df(df_temp):
-                        df_criteria = df_temp
-                        st.write(f"✔️ File kriteria terdeteksi: `{f.name}`")
-                    elif is_alternatives_df(df_temp):
-                        df_alternatives = df_temp
-                        st.write(f"✔️ File alternatif terdeteksi: `{f.name}`")
+
+                    # =====================
+                    # MODE AHP
+                    # =====================
+                    if "Analytical Hierarchy Process (AHP)" in method:
+                        if "kriteria" in f.name.lower():
+                            df_criteria = df_temp
+                            st.success(f"✔️ File AHP kriteria terdeteksi: `{f.name}`")
+                        elif "alternatif" in f.name.lower():
+                            df_alternatives = df_temp
+                            st.success(f"✔️ File AHP alternatif terdeteksi: `{f.name}`")
+                        else:
+                            st.warning(f"⚠️ File `{f.name}` tidak dikenali sebagai file AHP valid (gunakan nama mengandung 'kriteria' atau 'alternatif').")
+
+                    # =====================
+                    # MODE SAW / WP / TOPSIS
+                    # =====================
                     else:
-                        st.warning(f"⚠️ Tidak dapat mendeteksi jenis file `{f.name}` secara otomatis.")
+                        if is_criteria_df(df_temp):
+                            df_criteria = df_temp
+                            st.success(f"✔️ File kriteria terdeteksi: `{f.name}`")
+                        elif is_alternatives_df(df_temp):
+                            df_alternatives = df_temp
+                            st.success(f"✔️ File alternatif terdeteksi: `{f.name}`")
+                        else:
+                            st.warning(f"⚠️ Tidak dapat mendeteksi jenis file `{f.name}` secara otomatis.")
+
                 except Exception as e:
                     st.error(f"Gagal memuat file {f.name}: {e}")
 
+            # ===========================
+            # PROSES DATA
+            # ===========================
             try:
-                criteria, alternatives = parse_data(df_alternatives, df_criteria)
-                st.session_state.criteria = criteria
-                st.session_state.alternatives = alternatives
-                if criteria and alternatives:
-                    st.success(f"✅ Data berhasil dimuat! Ditemukan {len(alternatives)} alternatif dan {len(criteria)} kriteria.")
-                elif criteria:
-                    st.info(f"✅ Kriteria berhasil dimuat ({len(criteria)}). Silakan unggah file alternatif.")
-                elif alternatives:
-                    st.info(f"✅ Alternatif berhasil dimuat ({len(alternatives)}). Kriteria dibuat otomatis.")
+                # Jika metode AHP → simpan langsung ke session_state (tidak pakai parse_data)
+                if "Analytical Hierarchy Process (AHP)" in method:
+                    if df_criteria is not None and df_alternatives is not None:
+                        st.session_state.df_ahp_criteria = df_criteria
+                        st.session_state.df_ahp_alternatives = df_alternatives
+                        st.success("✅ File AHP berhasil dimuat!")
+                    else:
+                        st.warning("⚠️ Harap unggah kedua file: ahp-kriteria.csv dan ahp-alternatif.csv")
+                else:
+                    # SAW/WP/TOPSIS menggunakan parser umum
+                    criteria, alternatives = parse_data(df_alternatives, df_criteria)
+                    st.session_state.criteria = criteria
+                    st.session_state.alternatives = alternatives
+                    if criteria and alternatives:
+                        st.success(f"✅ Data berhasil dimuat! Ditemukan {len(alternatives)} alternatif dan {len(criteria)} kriteria.")
+                    elif criteria:
+                        st.info(f"✅ Kriteria berhasil dimuat ({len(criteria)}). Silakan unggah file alternatif.")
+                    elif alternatives:
+                        st.info(f"✅ Alternatif berhasil dimuat ({len(alternatives)}). Kriteria dibuat otomatis.")
             except Exception as e:
                 st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
+
+      
+
     
     else:  # Manual Input
         st.subheader("✏️ Input Manual")
@@ -468,25 +622,32 @@ def main():
         if st.button("🚀 Hitung Ranking", type="primary", use_container_width=True):
             with st.spinner("Menghitung..."):
                 try:
-                    # Pilih fungsi perhitungan sesuai metode yang dipilih
+                    # Jalankan perhitungan sesuai metode
                     if method == "Simple Additive Weighting (SAW)":
-                        calculate_func = calculate_saw
+                        steps, ranking = calculate_saw(st.session_state.criteria, st.session_state.alternatives)
+
                     elif method == "Weighted Product (WP)":
-                        calculate_func = calculate_wp
+                        steps, ranking = calculate_wp(st.session_state.criteria, st.session_state.alternatives)
+
                     elif method == "Technique for Order Preference by Similarity to Ideal Solution (TOPSIS)":
-                        calculate_func = calculate_topsis
+                        steps, ranking = calculate_topsis(st.session_state.criteria, st.session_state.alternatives)
+
+                    elif method == "Analytical Hierarchy Process (AHP)":
+                        # Ambil data AHP dari session state (hasil upload)
+                        if "df_ahp_criteria" not in st.session_state or "df_ahp_alternatives" not in st.session_state:
+                            st.warning("⚠️ Untuk AHP, harap unggah dua file: ahp-kriteria.csv dan ahp-alternatif.csv")
+                            st.stop()
+                        steps, ranking = calculate_ahp(st.session_state.df_ahp_criteria, st.session_state.df_ahp_alternatives)
+
                     else:
                         st.error("Metode belum didukung.")
                         st.stop()
 
-                    # Jalankan perhitungan
-                    steps, ranking = calculate_func(st.session_state.criteria, st.session_state.alternatives)
-
+                    # Tampilkan hasil (sama seperti sebelumnya)
                     st.success("✅ Perhitungan selesai!")
                     st.markdown("---")
                     st.header("🏆 Hasil Akhir")
 
-                    # Highlight warna emas, perak, perunggu
                     def highlight_top3(row):
                         color = ''
                         if row.Ranking == 1:
