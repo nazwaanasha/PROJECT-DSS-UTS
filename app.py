@@ -9,6 +9,268 @@ import pandas as pd
 import numpy as np
 from io import BytesIO
 
+def apply_custom_css():
+    st.markdown("""
+    <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+    * {
+        font-family: 'Poppins', sans-serif;
+    }
+    /* ======== WRAPPER UTAMA BIAR NENGAH ======== */
+ 
+    /* Reset posisi layout utama agar selalu di tengah, sidebar aktif/tidak */
+    div[data-testid="stAppViewContainer"] > div.main {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin: 0 auto !important;
+        display: flex;
+        justify-content: center;
+    }
+
+    .block-container {
+        padding-top: 1rem !important;
+    }
+  
+        /* ====== HOVER EFFECT DENGAN HINT UNGU-VIOLET-BIRU-PINK ====== */
+    div[data-testid="stVerticalBlock"] > div {
+        transition: all 0.35s ease;
+    }
+
+    div[data-testid="stVerticalBlock"] > div:hover {
+        transform: translateY(-4px) scale(1.01);
+        box-shadow:
+            0 0 15px rgba(168, 85, 247, 0.5),   /* violet */
+            0 0 25px rgba(99, 102, 241, 0.4),   /* biru neon */
+            0 0 40px rgba(236, 72, 153, 0.3);   /* pink neon */
+        border: 1px solid rgba(168, 85, 247, 0.4); /* ungu lembut */
+        background: linear-gradient(135deg,
+            rgba(168, 85, 247, 0.08),   /* violet */
+            rgba(99, 102, 241, 0.08),   /* biru */
+            rgba(236, 72, 153, 0.1)     /* pink */
+        );
+        transition: all 0.3s ease;
+    }
+
+    h1 {
+        background: linear-gradient(90deg, #6C63FF 0%, #C77DFF 40%, #FF6F91 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: #fff;
+        text-align: center;
+        font-weight: 700;
+        font-size: 3rem;
+        letter-spacing: 1px;
+        text-shadow:
+            0 0 10px rgba(108, 99, 255, 0.6),
+            0 0 20px rgba(199, 125, 255, 0.4),
+            0 0 40px rgba(255, 111, 145, 0.3);              /* ini padding keseluruhan */
+        padding-bottom: 2rem;          /* ⬅️ tambah ini untuk jarak bawah ekstra */
+        border-radius: 20px;
+        background-color: rgba(20, 15, 40, 0.8);
+        box-shadow: 0 0 30px rgba(199, 125, 255, 0.3);
+        animation: glowPulse 3s ease-in-out infinite alternate;
+    }
+
+
+    /* Subtitle */
+    .main > div:first-child > div > div > p {
+        color: #bdbdbd !important;
+        text-align: center;
+        font-size: 1.1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Kotak utama (blok konten) */
+    .stTabs, .stElementContainer, .stExpander, div[data-testid="stVerticalBlock"] > div {
+        width: 99% !important;
+        background: linear-gradient(135deg, #202534 0%, #181C27 100%);
+        border: 1px solid rgba(255, 255, 255, 0.05);
+        border-radius: 15px;
+        padding: 0.5rem;
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
+        margin-bottom: 1.2rem;
+        color: #E0E0E0;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;    
+    }
+
+ 
+    /* Subjudul */
+    h2, h3 {
+        color: #9D84FF !important;
+        font-weight: 600 !important;
+        margin-left: 1.1rem !important;
+        margin-top: 1rem !important;
+        margin-bottom: 1.5rem !important;
+    }
+    p {
+        text-align: center;
+    }
+
+    /* Sidebar */
+    section[data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #2B1055 0%, #5E17EB 50%, #1597BB 100%);
+        padding-top: 1.5rem;
+    }
+
+    section[data-testid="stSidebar"] > div {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(8px);
+        padding: 1.rem;
+    }
+
+    section[data-testid="stSidebar"] h2 {
+        color: #FFFFFF !important;
+        text-align: center;
+        font-weight: 600;
+        padding-bottom: 1.5rem;
+        padding-right: 1.7rem;
+    }
+
+    section[data-testid="stSidebar"] label {
+        color: #FFFFFF !important;
+        font-weight: 500;
+        padding-left: 1rem;
+    }
+
+    /* Tombol utama */
+    .stButton > button {
+        background: linear-gradient(135deg, #6C63FF 0%, #FF6F91 100%);
+        color: white;
+        border: none;
+        border-radius: 25px;
+        padding: 0.75rem 2rem;
+        font-weight: 600;
+        font-size: 1.05rem;
+        box-shadow: 0 4px 12px rgba(255, 111, 145, 0.3);
+        transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;   
+    }
+
+    .stButton > button:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
+        background: linear-gradient(135deg, #8A63FF 0%, #FF85B3 100%);
+    }
+
+    /* Input Fields */
+    .stTextInput > div > div > input,
+    .stNumberInput > div > div > input,
+    .stSelectbox > div > div > select {
+        border-radius: 10px;
+        border: 2px solid #333;
+        background-color: rgba(255, 255, 255, 0.08);
+        color: #FFFFFF;
+        padding: 0.6rem;
+        transition: all 0.3s ease;
+    }
+
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus,
+    .stSelectbox > div > div > select:focus {
+        border-color: #FF85B3;
+        box-shadow: 0 0 0 2px rgba(255, 133, 179, 0.3);
+    }
+
+    /* Radio Buttons */
+    .stRadio > label {
+        color: #E0E0E0 !important;
+        font-weight: 500;
+        padding-left: 0.5rem
+    }
+
+    /* Dataframe */
+    .dataframe {
+        border-radius: 10px !important;
+        overflow: hidden;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    .dataframe th {
+        background: linear-gradient(135deg, #6C63FF 0%, #FF85B3 100%) !important;
+        color: white !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        padding: 1rem !important;
+    }
+
+    .dataframe td {
+        background: rgba(255, 255, 255, 0.03);
+        color: #E0E0E0;
+        text-align: center !important;
+        padding: 0.75rem !important;
+    }
+
+    /* Expander Header */
+    .streamlit-expanderHeader {
+        background: linear-gradient(135deg, #6C63FF 0%, #FF6F91 100%);
+        color: white !important;
+        width: 100% !important;   /* lebar relatif terhadap sidebar */
+        margin: auto;            /* biar di tengah */
+        border-radius: 15px;
+        box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
+    }
+
+    /* Tabs */
+    .stTabs [data-baseweb="tab"] {
+        background: linear-gradient(135deg, #2B1055 0%, #6C63FF 100%);
+        color: white;
+        border-radius: 10px 10px 0 0;
+        padding: 0.75rem 1.5rem;
+        font-weight: 500;
+        transition: 0.3s;   
+    }
+
+    .stTabs [aria-selected="true"] {
+        background: linear-gradient(135deg, #FF6F91 0%, #6C63FF 100%);
+        text-align: center !important;
+        color: #FFF;
+        font-weight: 600;
+    }
+
+    /* File Uploader */
+    .stFileUploader {
+        background: rgba(255, 255, 255, 0.05);
+        border: 2px dashed #6C63FF;
+        border-radius: 15px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+        color: #FFFFFF;
+    }
+
+    .stFileUploader:hover {
+        background: rgba(108, 99, 255, 0.1);
+        border-color: #FF85B3;
+    }
+
+    /* Animasi */
+    @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-30px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* HR */
+    hr {
+        margin: 2rem 0;
+        border: none;
+        height: 2px;
+        background: linear-gradient(90deg, transparent, #6C63FF, #FF85B3, transparent);
+    }
+    
+    
+    /* ===== Footer di Bawah ===== */
+    .sidebar-footer {
+    position: absolute;
+    bottom: opx;           /* jarak dari bawah */
+    left: 0;
+    text-align: left;
+    font-size: 13px;
+    top: 24rem
+}
+    </style>
+    """, unsafe_allow_html=True)
+
 # ============================
 # DATA TYPES
 # ============================
@@ -101,6 +363,7 @@ def parse_data(df_alt, df_crit=None):
 
     if not criteria:
         return [], []
+
 
     # -------------------------------------
     # STEP 2: PARSE ALTERNATIF
@@ -306,6 +569,11 @@ def calculate_ahp(df_kriteria, df_alternatif):
         norm = alt_matrix / col_sum
         w_alt = norm.mean(axis=1)
 
+        steps.append((f"Normalisasi & Bobot Alternatif ({crit})", pd.DataFrame({
+            "Normalisasi": norm.mean(axis=1),
+            "Bobot": w_alt
+        })))
+
         alt_scores[crit] = w_alt
 
     # 4️⃣ Hitung Skor Akhir & Perangkingan
@@ -329,22 +597,20 @@ def calculate_ahp(df_kriteria, df_alternatif):
     alt_names_map = df_alternatif.drop_duplicates(subset=['Kode Alternatif'])
     alt_names_map = dict(zip(alt_names_map['Kode Alternatif'], alt_names_map['Nama Alternatif']))
 
-    # Hitung Skor Akhir
+    # Hasil Skor Akhir berdasarkan bobot kriteria (hasil dari tahap kriteria)
     result["Skor Akhir"] = 0.0
     for c in common_cols:
         result["Skor Akhir"] += result[c] * weights[c]
 
-    # Perangkingan
+    # Perhitungan bobot kriteria (rata-rata dari tahap kriteria)
+    steps.append(("Rata-rata Bobot Kriteria (dari langkah 1)", pd.DataFrame(weights, columns=["Rata-rata Kriteria"])))
+
+    # Urutkan hasil akhir berdasarkan skor
     result = result.sort_values("Skor Akhir", ascending=False)
     result["Ranking"] = np.arange(1, len(result) + 1)
 
-    # Format hasil akhir
-    result_final = result.reset_index().rename(columns={'index': 'Kode Alternatif'})
-    result_final.insert(1, 'Alternatif', result_final['Kode Alternatif'].map(alt_names_map))
-    
-    # Tampilkan hasil akhir
-    steps.append(("Hasil Akhir AHP", result_final[['Alternatif', 'Skor Akhir', 'Ranking']]))
-    return steps, result_final[['Alternatif', 'Skor Akhir', 'Ranking']]
+    steps.append(("Hasil Akhir AHP", result))
+    return steps, result.reset_index().rename(columns={'index': 'Alternatif'})
 
 # ============================
 # TOPSIS CALCULATION
@@ -467,8 +733,13 @@ def prepare_ahp_dfs_from_manual():
 # STREAMLIT UI
 # ============================
 def main():
-    st.set_page_config(page_title="MCDM Calculator", layout="wide")
-    st.title("🎯 MCDM Calculator (SAW, WP, AHP, TOPSIS)")
+    st.set_page_config(page_title="MCDM Calculator", layout="wide", page_icon="🎯")
+    
+    # Apply Custom CSS
+    apply_custom_css()
+    
+    st.title("🎯 MCDM Calculator")
+    
     st.markdown("**Multi-Criteria Decision Making** menggunakan metode Simple Additive Weighting (SAW), Weighted Product (WP), Analytical Hierarchy Process (AHP), dan Technique for Order Preference by Similarity to Ideal Solution (TOPSIS).")
 
     # Inisialisasi session state
@@ -478,8 +749,14 @@ def main():
     if 'ahp_manual_alt_names' not in st.session_state: st.session_state.ahp_manual_alt_names = {}
 
     # Sidebar untuk pengaturan
-    st.sidebar.header("Pengaturan")
+    st.sidebar.header("⚙️ Pengaturan")
     method = st.sidebar.selectbox("Pilih Metode", ["Simple Additive Weighting (SAW)", "Weighted Product (WP)", "Analytical Hierarchy Process (AHP)", "Technique for Order Preference by Similarity to Ideal Solution (TOPSIS)"])
+    st.sidebar.markdown("""
+    <div class="sidebar-footer">
+        © 2025 DSS 💜
+        \nNazwa-140810230019 & Senia-140810230021
+    </div>
+    """, unsafe_allow_html=True)
     input_method = st.radio("Metode Input Data", ["Upload File (CSV/XLSX)", "Input Manual"], horizontal=True)
 
     is_ahp = "Analytical Hierarchy Process (AHP)" in method
@@ -491,12 +768,15 @@ def main():
         st.subheader("📁 Upload File")
         if is_ahp:
             st.info("""**Format File AHP:**
-                    - **File Kriteria:** `Kode Kriteria`, `C01`,`C02`, ..., `Nama Kriteria`, `Atribut`
-                    - **File Alternatif:** `Kode Alternatif`, `A01`, `A02`, ..., `Nama Alternatif`, `Kriteria`""")
+                    \n -**File Kriteria:** `Kode Kriteria`, `C01`,`C02`, ..., `Nama Kriteria`, `Atribut`
+                    \n -**File Alternatif:** `Kode Alternatif`, `A01`, `A02`, ..., `Nama Alternatif`, `Kriteria`
+                    \n Anda dapat mengunggah satu file Excel (dengan sheet terpisah) atau beberapa file CSV sekaligus.""")
         else:
             st.info("""**Format File SAW/WP/TOPSIS:**
-                    - **File Kriteria:** `Kode Kriteria`, `Bobot`, `Nama Kriteria`, `Atribut`
-                    - **File Alternatif:** `Kode Alternatif`, `C1`, `C2`, ..., `Nama Alternatif`""")
+                    \n -**File Kriteria:** `Kode Kriteria`, `Bobot`, `Nama Kriteria`, `Atribut (cost/benefit)`
+                    \n -**File Alternatif:** `Kode Alternatif`, `C1`, `C2`, ..., `Nama Alternatif`
+                    \n Anda dapat mengunggah satu file Excel (dengan sheet terpisah) atau beberapa file CSV sekaligus.""")
+                
 
         uploaded_files = st.file_uploader("Pilih file CSV atau XLSX", type=['csv', 'xlsx', 'xls'], accept_multiple_files=True)
 
@@ -561,10 +841,9 @@ def main():
                     elif alternatives: st.info(f"✅ Alternatif dimuat ({len(alternatives)}). Kriteria dibuat otomatis.")
             except Exception as e:
                 st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
-      
     # ===========================
     # INPUT DATA - MANUAL
-    # ===========================          
+    # ===========================       
     else:  
         st.subheader("✏️ Input Manual") 
         # --- UI MANUAL AHP ---
@@ -671,7 +950,6 @@ def main():
                 alt.name = row_cols[0].text_input(f"Nama Alt {i+1}", alt.name, key=f"alt_name_{i}", label_visibility="collapsed")
                 for j, crit in enumerate(st.session_state.criteria):
                     alt.values[crit.id] = row_cols[j+1].number_input(crit.id, value=float(alt.values.get(crit.id, 1.0)), key=f"alt_val_{i}_{j}", label_visibility="collapsed")
-
     # ===========================
     # PERIKSA APAKAH DATA SIAP & TAMPILKAN
     # ===========================
@@ -714,7 +992,7 @@ def main():
                 st.markdown("**Alternatif:**")
                 df_alt_display_data = [{'Nama': alt.name or alt.id, **{c.name: alt.values.get(c.id, 0.0) for c in st.session_state.criteria}} for alt in st.session_state.alternatives]
                 st.dataframe(pd.DataFrame(df_alt_display_data), use_container_width=True, hide_index=True)
-
+        
         # ===========================
         # TOMBOL HITUNG & TAMPILKAN HASIL
         # ===========================
@@ -748,9 +1026,9 @@ def main():
 
                     def highlight_top3(row):
                         color = ''
-                        if row.Ranking == 1: color = 'background-color: #FFD700'
-                        elif row.Ranking == 2: color = 'background-color: #C0C0C0'
-                        elif row.Ranking == 3: color = 'background-color: #CD7F32'
+                        if row.Ranking == 1: color = 'background-color: #35166E'
+                        elif row.Ranking == 2: color = 'background-color: #6834D4'
+                        elif row.Ranking == 3: color = 'background-color: #AF93D7'
                         return [color] * len(row)
 
                     st.dataframe(
