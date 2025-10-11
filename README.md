@@ -1,5 +1,11 @@
 # 🧠 Decision Support System (DSS) - Multi Criteria Decision Making (MCDM)
+---
+| Nama Lengkap      | NPM          |
+| ----------------- | ------------ |
+| Nazwa Nashatasya  | 140810230019 |
+| Senia Nur Hasanah | 140810230021 |
 
+---
 ## 🪄 Deskripsi Singkat
 Aplikasi **Sistem Pendukung Keputusan (Decision Support System / DSS)** ini membantu pengguna dalam melakukan **Multi Criteria Decision Making (MCDM)** menggunakan beberapa metode populer, yaitu:
 
@@ -23,7 +29,7 @@ Tersedia empat metode **MCDM**, yaitu:
 - `Analytical Hierarchy Process (AHP)`
 - `TOPSIS`
 
-> Pilih salah satu metode untuk digunakan dalam proses perhitungan keputusan.
+> Pilih salah satu metode untuk digunakan dalam proses perhitungan.
 
 ---
 
