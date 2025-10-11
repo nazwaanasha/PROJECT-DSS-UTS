@@ -1,9 +1,7 @@
 # 🧠 Decision Support System (DSS) - Multi Criteria Decision Making (MCDM)
 ---
-| Nama Lengkap      | NPM          |
-| ----------------- | ------------ |
-| Nazwa Nashatasya  | 140810230019 |
-| Senia Nur Hasanah | 140810230021 |
+Nazwa Nashatasya   -   140810230019
+Senia Nur Hasanah   -   140810230021
 
 ---
 ## 🪄 Deskripsi Singkat
