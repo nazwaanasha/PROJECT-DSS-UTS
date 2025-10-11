@@ -1,52 +1,55 @@
 /* --- GENERAL & IMPORTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
+* {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* ============================================
+--- ☀️ LIGHT MODE (DEFAULT) ---
+============================================
+*/
+
 :root {
     --pastel-lavender: #D8B4FE;
     --pastel-peach: #FECDD3;
     --pastel-blue: #A5D8FF;
-    --light-bg: #F8F9FA;
-    --soft-border: #E5E7EB;
+    --bg-color: #F8F9FA;
+    --content-bg: #FFFFFF;
+    --border-color: #E5E7EB;
     --text-color: #4B5563;
     --text-light: #6B7280;
-    --white: #FFFFFF;
+    --shadow-color: rgba(0, 0, 0, 0.05);
+    --shadow-hover-color: rgba(0, 0, 0, 0.08);
 }
 
-* {
-    font-family: 'Poppins', sans-serif;
-}
- 
 /* --- LAYOUT & CONTAINER --- */
-
-/* Center the main app layout */
 div[data-testid="stAppViewContainer"] > div.main {
     padding-left: 0 !important;
     padding-right: 0 !important;
     margin: 0 auto !important;
     display: flex;
     justify-content: center;
-    background-color: var(--light-bg);
+    background-color: var(--bg-color);
 }
 
 .block-container {
     padding-top: 1rem !important;
 }
-  
-/* Main content blocks styling */
+
 .stTabs, .stElementContainer, .stExpander, div[data-testid="stVerticalBlock"] > div {
     width: 99% !important;
-    background-color: var(--white);
-    border: 1px solid var(--soft-border);
+    background-color: var(--content-bg);
+    border: 1px solid var(--border-color);
     border-radius: 15px;
     padding: 1rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 4px 12px var(--shadow-color);
     margin-bottom: 1.2rem;
     color: var(--text-color);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, background-color 0.3s ease;
 }
 
 /* --- TYPOGRAPHY --- */
-
 h1 {
     background: linear-gradient(90deg, var(--pastel-lavender) 0%, var(--pastel-peach) 100%);
     -webkit-background-clip: text;
@@ -59,14 +62,13 @@ h1 {
 }
 
 h2, h3 {
-    color: var(--pastel-purple) !important;
+    color: var(--pastel-lavender) !important;
     font-weight: 600 !important;
     margin-left: 1.1rem !important;
     margin-top: 1rem !important;
     margin-bottom: 1.5rem !important;
 }
 
-/* Subtitle under the main title */
 .main > div:first-child > div > div > p {
     color: var(--text-light) !important;
     text-align: center;
@@ -89,11 +91,6 @@ hr {
 /* --- SIDEBAR --- */
 section[data-testid="stSidebar"] {
     background: linear-gradient(180deg, #E9E4F0 0%, #D3CCE3 100%);
-    position: relative;             
-    height: 100vh;                   
-    padding-bottom: 3rem;          
-    box-sizing: border-box;
-    overflow: hidden;                
 }
 
 section[data-testid="stSidebar"] h2 {
@@ -119,8 +116,6 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
 }
 
 /* --- COMPONENTS --- */
-
-/* Buttons */
 .stButton > button {
     background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-peach) 100%);
     color: white;
@@ -135,31 +130,28 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     letter-spacing: 0.5px;
 }
 
-/* Input Fields (Text, Number, Selectbox) */
 .stTextInput > div > div > input,
 .stNumberInput > div > div > input,
 .stSelectbox > div > div > select {
     border-radius: 10px;
-    border: 1px solid var(--soft-border);
-    background-color: var(--white);
+    border: 1px solid var(--border-color);
+    background-color: var(--content-bg);
     color: var(--text-color);
     padding: 0.6rem;
     transition: all 0.3s ease;
 }
 
-/* Radio Buttons */
 .stRadio > label {
     color: var(--text-color) !important;
     font-weight: 500;
     padding-left: 0.5rem;
 }
 
-/* Dataframe */
 .dataframe {
     border-radius: 10px !important;
     overflow: hidden;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    border: 1px solid var(--soft-border);
+    box-shadow: 0 4px 6px var(--shadow-color);
+    border: 1px solid var(--border-color);
 }
 
 .dataframe th {
@@ -172,14 +164,13 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
 }
 
 .dataframe td {
-    background-color: var(--white);
+    background-color: var(--content-bg);
     color: var(--text-color);
     text-align: center !important;
     padding: 0.75rem !important;
-    border-bottom: 1px solid var(--soft-border);
+    border-bottom: 1px solid var(--border-color);
 }
 
-/* Expander Header */
 .streamlit-expanderHeader {
     background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-peach) 100%);
     color: white !important;
@@ -187,27 +178,25 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     box-shadow: 0 4px 12px rgba(216, 180, 254, 0.3);
 }
 
-/* Tabs */
 .stTabs [data-baseweb="tab"] {
-    background-color: var(--light-bg);
+    background-color: transparent;
     color: var(--text-light);
     border-radius: 10px 10px 0 0;
     padding: 0.75rem 1.5rem;
     font-weight: 500;
     transition: 0.3s;
-    border: 1px solid var(--soft-border);
+    border: 1px solid var(--border-color);
     border-bottom: none;
 }
 
 .stTabs [aria-selected="true"] {
     background: linear-gradient(135deg, var(--pastel-peach) 0%, var(--pastel-lavender) 100%);
-    color: var(--white);
+    color: white;
     font-weight: 600;
 }
 
-/* File Uploader */
 .stFileUploader {
-    background-color: #FDFEFE;
+    background-color: var(--content-bg);
     border: 2px dashed var(--pastel-lavender);
     border-radius: 15px;
     padding: 2rem;
@@ -216,21 +205,17 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
 }
 
 /* --- EFFECTS & ANIMATIONS --- */
-
-/* Hover effect for content blocks */
 div[data-testid="stVerticalBlock"] > div:hover {
     transform: translateY(-4px) scale(1.01);
-    box-shadow: 0 8px 25px rgba(192, 22, 22, 0.08);
+    box-shadow: 0 8px 25px var(--shadow-hover-color);
     border: 1px solid var(--pastel-lavender);
 }
 
-/* Button Hover */
 .stButton > button:hover {
     transform: translateY(-2px);
     box-shadow: 0 6px 20px rgba(216, 180, 254, 0.6);
 }
 
-/* Input Fields Focus */
 .stTextInput > div > div > input:focus,
 .stNumberInput > div > div > input:focus,
 .stSelectbox > div > div > select:focus {
@@ -238,13 +223,11 @@ div[data-testid="stVerticalBlock"] > div:hover {
     box-shadow: 0 0 0 2px rgba(216, 180, 254, 0.3);
 }
 
-/* File Uploader Hover */
 .stFileUploader:hover {
     background-color: rgba(216, 180, 254, 0.05);
     border-color: var(--pastel-peach);
 }
 
-/* Fade-in Animation */
 @keyframes fadeInDown {
     from { opacity: 0; transform: translateY(-30px); }
     to { opacity: 1; transform: translateY(0); }
@@ -252,4 +235,62 @@ div[data-testid="stVerticalBlock"] > div:hover {
 
 div[data-testid="stAppViewContainer"] > div.main > div {
     animation: fadeInDown 0.5s ease-out;
+}
+
+/* ============================================
+--- 🌙 DARK MODE ---
+============================================
+*/
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #111827;
+        --content-bg: #1F2937;
+        --border-color: #374151;
+        --text-color: #E5E7EB;
+        --text-light: #9CA3AF;
+        --shadow-color: rgba(0, 0, 0, 0.2);
+        --shadow-hover-color: rgba(0, 0, 0, 0.3);
+    }
+
+    /* --- SIDEBAR (DARK) --- */
+    section[data-testid="stSidebar"] {
+        background: #1F2937;
+        border-right: 1px solid var(--border-color);
+    }
+    
+    section[data-testid="stSidebar"] h2,
+    section[data-testid="stSidebar"] label {
+        color: var(--text-color) !important;
+    }
+    
+    /* --- COMPONENTS (DARK) --- */
+    .dataframe td {
+        border-bottom: 1px solid var(--border-color);
+    }
+
+    .stTabs [data-baseweb="tab"] {
+        background-color: #111827; /* Darker than content background */
+    }
+
+    .stFileUploader {
+        background-color: #111827;
+        border-color: var(--pastel-peach);
+    }
+
+    .stFileUploader:hover {
+        background-color: var(--content-bg);
+    }
+
+    /* --- EFFECTS (DARK) --- */
+    .stTextInput > div > div > input:focus,
+    .stNumberInput > div > div > input:focus,
+    .stSelectbox > div > div > select:focus {
+        border-color: var(--pastel-lavender);
+        box-shadow: 0 0 0 2px rgba(216, 180, 254, 0.2); /* Reduced opacity for dark bg */
+    }
+
+    div[data-testid="stVerticalBlock"] > div:hover {
+        border: 1px solid var(--pastel-peach);
+    }
 }
