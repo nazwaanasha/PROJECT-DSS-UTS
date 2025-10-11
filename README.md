@@ -102,7 +102,7 @@ Format contoh:
 ### 4️⃣ Proses Perhitungan
 Setelah file diunggah atau data diinput secara manual:
 
-- Aplikasi akan **membaca data otomatis** dan menampilkan **matriks normalisasi**.
+- Aplikasi akan **membaca data otomatis** dan menampilkan data yang telah diinput.
 - Setelah data terbaca, klik tombol **Hitung Ranking** untuk memproses pertihungannya.
 - Hasil Akhir dan langkah perhitungannya dapat dilihat ketika muncul **Perhitungan Selesai**.
 - Setiap metode memiliki langkah perhitungan berbeda:
