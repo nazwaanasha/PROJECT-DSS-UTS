@@ -1,6 +1,6 @@
 # 🧠 Decision Support System (DSS) - Multi Criteria Decision Making (MCDM)
----
 Nazwa Nashatasya   -   140810230019
+
 Senia Nur Hasanah   -   140810230021
 
 ---
