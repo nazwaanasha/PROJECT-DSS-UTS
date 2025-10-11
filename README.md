@@ -31,7 +31,7 @@ Tersedia empat metode **MCDM**, yaitu:
 > Pilih salah satu metode untuk digunakan dalam proses perhitungan.
 
 📸 **Ilustrasi:**
-![Langkah 1 - Pilih Metode](step1.png)
+![Langkah 1 - Pilih Metode](screenshots/step1.png)
 
 ---
 
@@ -42,7 +42,7 @@ Masih di **sidebar**, pilih cara input data:
 - **Input Manual** → jika ingin mengetikkan nilai langsung di dalam aplikasi.
 
 📸 **Ilustrasi:**
-![Langkah 2 - Pilih Metode Input](step2.png)
+![Langkah 2 - Pilih Metode Input](screenshots/step2.png)
 
 ---
 
@@ -67,7 +67,7 @@ Metode ini membutuhkan **dua file** sebagai inputnya, yaitu:
 | A3               | 2200 | 8  | 9  |
 
 📸 **Ilustrasi:**
-![Langkah 3 - Struktur Data](step3.png)
+![Langkah 3 - Struktur Data](screenshots/step3.png)
 
 ---
 
@@ -81,7 +81,7 @@ Menentukan seberapa penting satu kriteria dibandingkan yang lain.
 Menentukan nilai perbandingan antar alternatif terhadap setiap kriteria.
 
 📸 **Ilustrasi:**
-![Langkah 4 - Input File AHP](step4.png)
+![Langkah 4 - Input File AHP](screenshots/step4.png)
 
 ---
 
@@ -93,7 +93,7 @@ Setelah file diunggah atau data diinput secara manual:
 - Hasil perhitungan dan langkah-langkah akan muncul di layar.
 
 📸 **Ilustrasi:**
-![Langkah 5 - Proses Perhitungan](step5.png)
+![Langkah 5 - Proses Perhitungan](screenshots/step5.png)
 
 ---
 
@@ -103,7 +103,7 @@ Setelah file diunggah atau data diinput secara manual:
 - Ranking dan skor akhir disusun berdasarkan metode terpilih.
 
 📸 **Ilustrasi:**
-![Langkah 6 - Hasil Akhir](step6.png)
+![Langkah 6 - Hasil Akhir](screenshots/step6.png)
 
 ---
 
@@ -115,7 +115,7 @@ Langkah SAW meliputi:
 4. Hasil Perankingan
 
 📸 **Ilustrasi:**
-![Langkah 7 - SAW](step7.png)
+![Langkah 7 - SAW](screenshots/step7.png)
 
 ---
 
@@ -129,7 +129,7 @@ Langkah WP meliputi:
 6. Hasil Perankingan
 
 📸 **Ilustrasi:**
-![Langkah 8 - WP](step8.png)
+![Langkah 8 - WP](screenshots/step8.png)
 
 ---
 
@@ -145,7 +145,7 @@ Langkah AHP meliputi:
 8. Hasil Akhir AHP
 
 📸 **Ilustrasi:**
-![Langkah 9 - AHP](step9.png)
+![Langkah 9 - AHP](screenshots/step9.png)
 
 ---
 
@@ -160,7 +160,7 @@ Langkah TOPSIS meliputi:
 7. Hasil Perankingan
 
 📸 **Ilustrasi:**
-![Langkah 10 - TOPSIS](step10.png)
+![Langkah 10 - TOPSIS](screenshots/step10.png)
 
 ---
 
@@ -182,16 +182,16 @@ Langkah TOPSIS meliputi:
 ## 🖼️ Dokumentasi Langkah-langkah
 | Langkah | Gambar | Deskripsi |
 |----------|--------|------------|
-| 1 | ![step1](step1.png) | Pilih metode MCDM |
-| 2 | ![step2](step2.png) | Pilih cara input data |
-| 3 | ![step3](step3.png) | Lihat contoh format file |
-| 4 | ![step4](step4.png) | Upload file AHP atau lainnya |
-| 5 | ![step5](step5.png) | Proses perhitungan dimulai |
-| 6 | ![step6](step6.png) | Hasil sementara muncul |
-| 7 | ![step7](step7.png) | Hasil SAW ditampilkan |
-| 8 | ![step8](step8.png) | Hasil WP ditampilkan |
-| 9 | ![step9](step9.png) | Hasil AHP ditampilkan |
-| 10 | ![step10](step10.png) | Hasil TOPSIS ditampilkan |
+| 1 | ![step1](screenshots/step1.png) | Pilih metode MCDM |
+| 2 | ![step2](screenshots/step2.png) | Pilih cara input data |
+| 3 | ![step3](screenshots/step3.png) | Lihat contoh format file |
+| 4 | ![step4](screenshots/step4.png) | Upload file AHP atau lainnya |
+| 5 | ![step5](screenshots/step5.png) | Proses perhitungan dimulai |
+| 6 | ![step6](screenshots/step6.png) | Hasil sementara muncul |
+| 7 | ![step7](screenshots/step7.png) | Hasil SAW ditampilkan |
+| 8 | ![step8](screenshots/step8.png) | Hasil WP ditampilkan |
+| 9 | ![step9](screenshots/step9.png) | Hasil AHP ditampilkan |
+| 10 | ![step10](screenshots/step10.png) | Hasil TOPSIS ditampilkan |
 
 ---
 
