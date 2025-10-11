@@ -12,7 +12,7 @@ Aplikasi **Sistem Pendukung Keputusan (Decision Support System / DSS)** ini memb
 - **Analytical Hierarchy Process (AHP)**
 - **Technique for Order of Preference by Similarity to Ideal Solution (TOPSIS)**
 
-Aplikasi ini dibangun menggunakan **Streamlit**, sehingga dapat dijalankan secara interaktif melalui browser dan memudahkan pengguna dalam menganalisis alternatif berdasarkan kriteria yang ditentukan.
+Aplikasi dibangun menggunakan **Streamlit**, sehingga dapat dijalankan secara interaktif melalui browser dan memudahkan pengguna dalam menganalisis alternatif berdasarkan kriteria yang ditentukan. Aplikasi ini juga menggunakan tampilan modern dengan **CSS eksternal** (`style.css`).
 
 ---
 
@@ -45,15 +45,9 @@ Setiap metode membutuhkan format file yang berbeda agar sistem dapat membaca dat
 ---
 
 #### 🟢 Untuk SAW, WP, dan TOPSIS
-Metode ini membutuhkan **dua file**, yaitu:
-Format File SAW/WP/TOPSIS:
+Metode ini membutuhkan **dua file** sebagai inputnya, yaitu:
 
--File Kriteria: Kode Kriteria, Bobot, Nama Kriteria, Atribut (cost/benefit)
-
--File Alternatif: Kode Alternatif, C1, C2, ..., dst.
-
-
-#### 1. File Kriteria
+#### 1. Input Kriteria
 Format contoh:
 
 | Kode Kriteria | Bobot | Nama Kriteria | Atribut |
@@ -62,7 +56,7 @@ Format contoh:
 | C2             | 0.3    | Kualitas       | benefit  |
 | C3             | 0.3    | Pelayanan      | benefit  |
 
-#### 2. File Alternatif
+#### 2. Input Alternatif
 Format contoh:
 
 | Kode Alternatif | C1   | C2 | C3 |
@@ -74,11 +68,11 @@ Format contoh:
 ---
 
 #### 🔵 Untuk AHP
-Metode AHP memerlukan **dua file**, yaitu:
+Metode AHP memerlukan **dua file** sebagai inputnya, yaitu:
 
-1. **File Perbandingan Antar Kriteria**  
-   Digunakan untuk menentukan seberapa penting satu kriteria dibandingkan yang lain.  
-   Format contoh:
+#### 1. Input Perbandingan Antar Kriteria
+Digunakan untuk menentukan seberapa penting satu kriteria dibandingkan yang lain.  
+Format contoh:
    
 | Kode Kriteria | C01   | C02 | C03 | C04   | C05 | Nama Kriteria          | Atribut |
 | ------------- | ----- | --- | --- | ----- | --- | ---------------------- | ------- |
@@ -89,9 +83,10 @@ Metode AHP memerlukan **dua file**, yaitu:
 | C05           | 0.333 | 1   | 0.5 | 0.333 | 1   | Luas bangunan          | Benefit |
 
 
-3. **File Perbandingan Antar Alternatif (per Kriteria)**  
-   Menentukan nilai perbandingan antar alternatif terhadap setiap kriteria.  
-   Format contoh:
+
+#### 2. Input Perbandingan Antar Alternatif (per Kriteria)
+Menentukan nilai perbandingan antar alternatif terhadap setiap kriteria.  
+Format contoh:
    
 | Kode Alternatif | A01   | A02   | A03 | Nama Alternatif | Kriteria |
 | --------------- | ----- | ----- | --- | --------------- | -------- |
@@ -133,6 +128,3 @@ Setelah file diunggah atau data diinput secara manual:
 5. Lihat hasil ranking dan langkah perhitungannya di halaman utama.
 
 ---
-
-## 🎨 Tampilan Aplikasi
-Aplikasi menggunakan tampilan modern dengan **CSS eksternal** (`style.css`).
