@@ -1,252 +1,116 @@
-/* ===== style.css ===== */
+/* --- GENERAL & IMPORTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-    * {
-        font-family: 'Poppins', sans-serif;
-    }
-    /* ======== WRAPPER UTAMA BIAR NENGAH ======== */
- 
-    /* Reset posisi layout utama agar selalu di tengah, sidebar aktif/tidak */
-    div[data-testid="stAppViewContainer"] > div.main {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-        margin: 0 auto !important;
-        display: flex;
-        justify-content: center;
-    }
+:root {
+    --pastel-lavender: #D8B4FE;
+    --pastel-peach: #FECDD3;
+    --pastel-blue: #A5D8FF;
+    --light-bg: #F8F9FA;
+    --soft-border: #E5E7EB;
+    --text-color: #4B5563;
+    --text-light: #6B7280;
+    --white: #FFFFFF;
+}
 
-    .block-container {
-        padding-top: 1rem !important;
-    }
+* {
+    font-family: 'Poppins', sans-serif;
+}
+ 
+/* --- LAYOUT & CONTAINER --- */
+
+/* Center the main app layout */
+div[data-testid="stAppViewContainer"] > div.main {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+    margin: 0 auto !important;
+    display: flex;
+    justify-content: center;
+    background-color: var(--light-bg);
+}
+
+.block-container {
+    padding-top: 1rem !important;
+}
   
-        /* ====== HOVER EFFECT DENGAN HINT UNGU-VIOLET-BIRU-PINK ====== */
-    div[data-testid="stVerticalBlock"] > div {
-        transition: all 0.35s ease;
-    }
+/* Main content blocks styling */
+.stTabs, .stElementContainer, .stExpander, div[data-testid="stVerticalBlock"] > div {
+    width: 99% !important;
+    background-color: var(--white);
+    border: 1px solid var(--soft-border);
+    border-radius: 15px;
+    padding: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin-bottom: 1.2rem;
+    color: var(--text-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
 
-    div[data-testid="stVerticalBlock"] > div:hover {
-        transform: translateY(-4px) scale(1.01);
-        box-shadow:
-            0 0 15px rgba(168, 85, 247, 0.5),   /* violet */
-            0 0 25px rgba(99, 102, 241, 0.4),   /* biru neon */
-            0 0 40px rgba(236, 72, 153, 0.3);   /* pink neon */
-        border: 1px solid rgba(168, 85, 247, 0.4); /* ungu lembut */
-        background: linear-gradient(135deg,
-            rgba(168, 85, 247, 0.08),   /* violet */
-            rgba(99, 102, 241, 0.08),   /* biru */
-            rgba(236, 72, 153, 0.1)     /* pink */
-        );
-        transition: all 0.3s ease;
-    }
+/* --- TYPOGRAPHY --- */
 
-    h1 {
-        background: linear-gradient(90deg, #6C63FF 0%, #C77DFF 40%, #FF6F91 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        color: #fff;
-        text-align: center;
-        font-weight: 700;
-        font-size: 3rem;
-        letter-spacing: 1px;
-        text-shadow:
-            0 0 10px rgba(108, 99, 255, 0.6),
-            0 0 20px rgba(199, 125, 255, 0.4),
-            0 0 40px rgba(255, 111, 145, 0.3);              /* ini padding keseluruhan */
-        padding-bottom: 2rem;          /* ⬅️ tambah ini untuk jarak bawah ekstra */
-        border-radius: 20px;
-        background-color: rgba(20, 15, 40, 0.8);
-        box-shadow: 0 0 30px rgba(199, 125, 255, 0.3);
-        animation: glowPulse 3s ease-in-out infinite alternate;
-    }
+h1 {
+    background: linear-gradient(90deg, var(--pastel-lavender) 0%, var(--pastel-peach) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    font-weight: 700;
+    font-size: 3rem;
+    letter-spacing: 1px;
+    padding-bottom: 2rem;
+}
 
+h2, h3 {
+    color: var(--pastel-purple) !important;
+    font-weight: 600 !important;
+    margin-left: 1.1rem !important;
+    margin-top: 1rem !important;
+    margin-bottom: 1.5rem !important;
+}
 
-    /* Subtitle */
-    .main > div:first-child > div > div > p {
-        color: #bdbdbd !important;
-        text-align: center;
-        font-size: 1.1rem;
-        margin-bottom: 2rem;
-    }
+/* Subtitle under the main title */
+.main > div:first-child > div > div > p {
+    color: var(--text-light) !important;
+    text-align: center;
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+}
 
-    /* Kotak utama (blok konten) */
-    .stTabs, .stElementContainer, .stExpander, div[data-testid="stVerticalBlock"] > div {
-        width: 99% !important;
-        background: linear-gradient(135deg, #202534 0%, #181C27 100%);
-        border: 1px solid rgba(255, 255, 255, 0.05);
-        border-radius: 15px;
-        padding: 0.5rem;
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5);
-        margin-bottom: 1.2rem;
-        color: #E0E0E0;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;    
-    }
+p {
+    text-align: left; 
+    line-height: 1.8;
+}
 
- 
-    /* Subjudul */
-    h2, h3 {
-        color: #9D84FF !important;
-        font-weight: 600 !important;
-        margin-left: 1.1rem !important;
-        margin-top: 1rem !important;
-        margin-bottom: 1.5rem !important;
-    }
-    p {
-        text-align: center;
-    }
+hr {
+    margin: 2rem 0;
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--pastel-lavender), var(--pastel-peach), transparent);
+}
 
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #2B1055 0%, #5E17EB 50%, #1597BB 100%);
-    }
+/* --- SIDEBAR --- */
+section[data-testid="stSidebar"] {
+    background: linear-gradient(180deg, #E9E4F0 0%, #D3CCE3 100%);
+    position: relative;             
+    height: 100vh;                   
+    padding-bottom: 3rem;          
+    box-sizing: border-box;
+    overflow: hidden;                
+}
 
-    section[data-testid="stSidebar"] > div {
-        background: rgba(255, 255, 255, 0.05);
-        backdrop-filter: blur(8px);
-        padding: 1.rem;
-    }
+section[data-testid="stSidebar"] h2 {
+    color: var(--text-color) !important;
+    text-align: center;
+    font-weight: 600;
+    padding-bottom: 1.5rem;
+    padding-right: 1.7rem;
+}
 
-    section[data-testid="stSidebar"] h2 {
-        color: #FFFFFF !important;
-        text-align: center;
-        font-weight: 600;
-        padding-bottom: 1.5rem;
-        padding-right: 1.7rem;
-    }
+section[data-testid="stSidebar"] label {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    padding-left: 1rem;
+}
 
-    section[data-testid="stSidebar"] label {
-        color: #FFFFFF !important;
-        font-weight: 500;
-        padding-left: 1rem;
-    }
-
-    /* Tombol utama */
-    .stButton > button {
-        background: linear-gradient(135deg, #6C63FF 0%, #FF6F91 100%);
-        color: white;
-        border: none;
-        border-radius: 25px;
-        padding: 0.75rem 2rem;
-        font-weight: 600;
-        font-size: 1.05rem;
-        box-shadow: 0 4px 12px rgba(255, 111, 145, 0.3);
-        transition: all 0.3s ease;
-        text-transform: uppercase;
-        letter-spacing: 0.5px;   
-    }
-
-    .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(108, 99, 255, 0.5);
-        background: linear-gradient(135deg, #8A63FF 0%, #FF85B3 100%);
-    }
-
-    /* Input Fields */
-    .stTextInput > div > div > input,
-    .stNumberInput > div > div > input,
-    .stSelectbox > div > div > select {
-        border-radius: 10px;
-        border: 2px solid #333;
-        background-color: rgba(255, 255, 255, 0.08);
-        color: #FFFFFF;
-        padding: 0.6rem;
-        transition: all 0.3s ease;
-    }
-
-    .stTextInput > div > div > input:focus,
-    .stNumberInput > div > div > input:focus,
-    .stSelectbox > div > div > select:focus {
-        border-color: #FF85B3;
-        box-shadow: 0 0 0 2px rgba(255, 133, 179, 0.3);
-    }
-
-    /* Radio Buttons */
-    .stRadio > label {
-        color: #E0E0E0 !important;
-        font-weight: 500;
-        padding-left: 0.5rem
-    }
-
-    /* Dataframe */
-    .dataframe {
-        border-radius: 10px !important;
-        overflow: hidden;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-    }
-
-    .dataframe th {
-        background: linear-gradient(135deg, #6C63FF 0%, #FF85B3 100%) !important;
-        color: white !important;
-        font-weight: 600 !important;
-        text-align: center !important;
-        padding: 1rem !important;
-    }
-
-    .dataframe td {
-        background: rgba(255, 255, 255, 0.03);
-        color: #E0E0E0;
-        text-align: center !important;
-        padding: 0.75rem !important;
-    }
-
-    /* Expander Header */
-    .streamlit-expanderHeader {
-        background: linear-gradient(135deg, #6C63FF 0%, #FF6F91 100%);
-        color: white !important;
-        width: 100% !important;   /* lebar relatif terhadap sidebar */
-        margin: auto;            /* biar di tengah */
-        border-radius: 15px;
-        box-shadow: 0 0 20px rgba(108, 99, 255, 0.3);
-    }
-
-    /* Tabs */
-    .stTabs [data-baseweb="tab"] {
-        background: linear-gradient(135deg, #2B1055 0%, #6C63FF 100%);
-        color: white;
-        border-radius: 10px 10px 0 0;
-        padding: 0.75rem 1.5rem;
-        font-weight: 500;
-        transition: 0.3s;   
-    }
-
-    .stTabs [aria-selected="true"] {
-        background: linear-gradient(135deg, #FF6F91 0%, #6C63FF 100%);
-        text-align: center !important;
-        color: #FFF;
-        font-weight: 600;
-    }
-
-    /* File Uploader */
-    .stFileUploader {
-        background: rgba(255, 255, 255, 0.05);
-        border: 2px dashed #6C63FF;
-        border-radius: 15px;
-        padding: 2rem;
-        transition: all 0.3s ease;
-        color: #FFFFFF;
-    }
-
-    .stFileUploader:hover {
-        background: rgba(108, 99, 255, 0.1);
-        border-color: #FF85B3;
-    }
-
-    /* Animasi */
-    @keyframes fadeInDown {
-        from { opacity: 0; transform: translateY(-30px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* HR */
-    hr {
-        margin: 2rem 0;
-        border: none;
-        height: 2px;
-        background: linear-gradient(90deg, transparent, #6C63FF, #FF85B3, transparent);
-    }
-    
-    
-/* Hilangkan kotak gelap di sidebar */
-section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div:nth-child(3) {
+section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div {
     background: transparent !important;
     box-shadow: none !important;
     border: none !important;
@@ -254,13 +118,138 @@ section[data-testid="stSidebar"] div[data-testid="stVerticalBlock"] > div:nth-ch
     margin: 0 !important;
 }
 
-/* Atur posisi footer di pojok kiri bawah */
-.sidebar-footer {
-    position: absolute;
-    bottom: opx;          
-    left: 0;
-    text-align: left;
-    font-size: 13px;
-    top: 26rem
-    
+/* --- COMPONENTS --- */
+
+/* Buttons */
+.stButton > button {
+    background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-peach) 100%);
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0.75rem 2rem;
+    font-weight: 600;
+    font-size: 1.05rem;
+    box-shadow: 0 4px 12px rgba(216, 180, 254, 0.4);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Input Fields (Text, Number, Selectbox) */
+.stTextInput > div > div > input,
+.stNumberInput > div > div > input,
+.stSelectbox > div > div > select {
+    border-radius: 10px;
+    border: 1px solid var(--soft-border);
+    background-color: var(--white);
+    color: var(--text-color);
+    padding: 0.6rem;
+    transition: all 0.3s ease;
+}
+
+/* Radio Buttons */
+.stRadio > label {
+    color: var(--text-color) !important;
+    font-weight: 500;
+    padding-left: 0.5rem;
+}
+
+/* Dataframe */
+.dataframe {
+    border-radius: 10px !important;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid var(--soft-border);
+}
+
+.dataframe th {
+    background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-blue) 100%) !important;
+    color: white !important;
+    font-weight: 600 !important;
+    text-align: center !important;
+    padding: 1rem !important;
+    border: none;
+}
+
+.dataframe td {
+    background-color: var(--white);
+    color: var(--text-color);
+    text-align: center !important;
+    padding: 0.75rem !important;
+    border-bottom: 1px solid var(--soft-border);
+}
+
+/* Expander Header */
+.streamlit-expanderHeader {
+    background: linear-gradient(135deg, var(--pastel-lavender) 0%, var(--pastel-peach) 100%);
+    color: white !important;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(216, 180, 254, 0.3);
+}
+
+/* Tabs */
+.stTabs [data-baseweb="tab"] {
+    background-color: var(--light-bg);
+    color: var(--text-light);
+    border-radius: 10px 10px 0 0;
+    padding: 0.75rem 1.5rem;
+    font-weight: 500;
+    transition: 0.3s;
+    border: 1px solid var(--soft-border);
+    border-bottom: none;
+}
+
+.stTabs [aria-selected="true"] {
+    background: linear-gradient(135deg, var(--pastel-peach) 0%, var(--pastel-lavender) 100%);
+    color: var(--white);
+    font-weight: 600;
+}
+
+/* File Uploader */
+.stFileUploader {
+    background-color: #FDFEFE;
+    border: 2px dashed var(--pastel-lavender);
+    border-radius: 15px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+    color: var(--text-light);
+}
+
+/* --- EFFECTS & ANIMATIONS --- */
+
+/* Hover effect for content blocks */
+div[data-testid="stVerticalBlock"] > div:hover {
+    transform: translateY(-4px) scale(1.01);
+    box-shadow: 0 8px 25px rgba(192, 22, 22, 0.08);
+    border: 1px solid var(--pastel-lavender);
+}
+
+/* Button Hover */
+.stButton > button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(216, 180, 254, 0.6);
+}
+
+/* Input Fields Focus */
+.stTextInput > div > div > input:focus,
+.stNumberInput > div > div > input:focus,
+.stSelectbox > div > div > select:focus {
+    border-color: var(--pastel-lavender);
+    box-shadow: 0 0 0 2px rgba(216, 180, 254, 0.3);
+}
+
+/* File Uploader Hover */
+.stFileUploader:hover {
+    background-color: rgba(216, 180, 254, 0.05);
+    border-color: var(--pastel-peach);
+}
+
+/* Fade-in Animation */
+@keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-30px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+div[data-testid="stAppViewContainer"] > div.main > div {
+    animation: fadeInDown 0.5s ease-out;
 }

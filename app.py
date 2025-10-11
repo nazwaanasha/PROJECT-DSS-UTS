@@ -480,10 +480,17 @@ def main():
     # Apply Custom CSS
     load_css("style.css")
     
-    st.title("🎯 MCDM Calculator")
+    with st.container():
+        st.markdown("""
+            <div class="main-header">
+                <h1>🎯 MCDM Calculator</h1>
+                <p><b>Multi-Criteria Decision Making</b> menggunakan metode 
+                Simple Additive Weighting (SAW), Weighted Product (WP), 
+                Analytical Hierarchy Process (AHP), dan Technique for Order Preference 
+                by Similarity to Ideal Solution (TOPSIS).</p>
+            </div>
+        """, unsafe_allow_html=True)
     
-    st.markdown("**Multi-Criteria Decision Making** menggunakan metode Simple Additive Weighting (SAW), Weighted Product (WP), Analytical Hierarchy Process (AHP), dan Technique for Order Preference by Similarity to Ideal Solution (TOPSIS).")
-
     # Inisialisasi session state
     if 'criteria' not in st.session_state: st.session_state.criteria = []
     if 'alternatives' not in st.session_state: st.session_state.alternatives = []
@@ -493,12 +500,6 @@ def main():
     # Sidebar untuk pengaturan
     st.sidebar.header("⚙️ Pengaturan")
     method = st.sidebar.selectbox("Pilih Metode", ["Simple Additive Weighting (SAW)", "Weighted Product (WP)", "Analytical Hierarchy Process (AHP)", "Technique for Order Preference by Similarity to Ideal Solution (TOPSIS)"])
-    st.sidebar.markdown("""
-    <div class="sidebar-footer">
-        © 2025 DSS 💜
-        \nNazwa-140810230019 & Senia-140810230021
-    </div>
-    """, unsafe_allow_html=True)
     input_method = st.radio("Metode Input Data", ["Upload File (CSV/XLSX)", "Input Manual"], horizontal=True)
 
     is_ahp = "Analytical Hierarchy Process (AHP)" in method
@@ -583,6 +584,7 @@ def main():
                     elif alternatives: st.info(f"✅ Alternatif dimuat ({len(alternatives)}). Kriteria dibuat otomatis.")
             except Exception as e:
                 st.error(f"❌ Terjadi kesalahan saat memproses data: {e}")
+    
     # ===========================
     # INPUT DATA - MANUAL
     # ===========================       
@@ -616,7 +618,6 @@ def main():
                         st.session_state.ahp_manual_alt_names[aid] = st.text_input(f"Nama {aid}", st.session_state.ahp_manual_alt_names[aid], key=f"alt_name_{aid}")
             
             # Bagian Input Matriks Perbandingan Kriteria
-            st.markdown("---")
             st.write("**2. Matriks Perbandingan Kriteria**")
             cols_h = st.columns([1.5] + [1] * num_criteria)
             for j, cid in enumerate(crit_ids):
@@ -635,7 +636,6 @@ def main():
                         cols_r[j+1].number_input(key, min_value=0.0, value=float(value), key=key, on_change=update_reciprocal, args=('ahp_crit_matrix', i, j), label_visibility="collapsed", disabled=is_reciprocal)
 
             # Bagian Input Matriks Perbandingan Alternatif per Kriteria
-            st.markdown("---")
             st.write("**3. Matriks Perbandingan Alternatif (berdasarkan setiap Kriteria)**")
             tabs = st.tabs([name for name in st.session_state.ahp_manual_crit_names.values()])
             for i_crit, crit_id in enumerate(crit_ids):
@@ -676,7 +676,6 @@ def main():
                     crit.attribute = st.selectbox("Atribut", ['benefit', 'cost'], index=0 if crit.attribute == 'benefit' else 1, key=f"crit_attr_{i}")
             
             # Bagian Input Alternatif
-            st.markdown("---")
             num_alternatives = st.number_input("Jumlah Alternatif", 1, 200, len(st.session_state.alternatives) or 3)
             if len(st.session_state.alternatives) != num_alternatives:
                 st.session_state.alternatives = [Alternative(f"A{i+1}", f"Alternatif {i+1}", {c.id: 1.0 for c in st.session_state.criteria}) for i in range(num_alternatives)]
@@ -692,6 +691,7 @@ def main():
                 alt.name = row_cols[0].text_input(f"Nama Alt {i+1}", alt.name, key=f"alt_name_{i}", label_visibility="collapsed")
                 for j, crit in enumerate(st.session_state.criteria):
                     alt.values[crit.id] = row_cols[j+1].number_input(crit.id, value=float(alt.values.get(crit.id, 1.0)), key=f"alt_val_{i}_{j}", label_visibility="collapsed")
+    
     # ===========================
     # PERIKSA APAKAH DATA SIAP & TAMPILKAN
     # ===========================
@@ -704,7 +704,7 @@ def main():
         data_is_ready = True
 
     if data_is_ready:
-        st.markdown("---")
+
         st.subheader("📊 Data Saat Ini")
         # --- AHP ---
         if is_ahp: 
@@ -738,8 +738,8 @@ def main():
         # ===========================
         # TOMBOL HITUNG & TAMPILKAN HASIL
         # ===========================
-        st.markdown("---")
-        if st.button("🚀 Hitung Ranking", type="primary", use_container_width=True):
+
+        if st.button("🏆 Hitung Ranking", type="primary", use_container_width=True):
             with st.spinner("Menghitung..."):
                 try:
                     steps, ranking = [], pd.DataFrame()
@@ -763,14 +763,14 @@ def main():
                             st.stop()
                     
                     st.success("✅ Perhitungan selesai!")
-                    st.markdown("---")
+            
                     st.header("🏆 Hasil Akhir")
 
                     def highlight_top3(row):
                         color = ''
-                        if row.Ranking == 1: color = 'background-color: #35166E'
-                        elif row.Ranking == 2: color = 'background-color: #6834D4'
-                        elif row.Ranking == 3: color = 'background-color: #AF93D7'
+                        if row.Ranking == 1: color = 'background-color: #AF93D7'
+                        elif row.Ranking == 2: color = 'background-color: #C7AFE1'
+                        elif row.Ranking == 3: color = 'background-color: #E1CEF0'
                         return [color] * len(row)
 
                     st.dataframe(
@@ -778,7 +778,7 @@ def main():
                         use_container_width=True, hide_index=True
                     )
 
-                    st.markdown("---")
+            
                     st.header("📝 Langkah Perhitungan")
                     for title, df in steps:
                         with st.expander(title): st.dataframe(df, use_container_width=True)

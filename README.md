@@ -1,9 +1,9 @@
 # 🧠 Decision Support System (DSS) - Multi Criteria Decision Making (MCDM)
-Nazwa Nashatasya   -   140810230019
-
-Senia Nur Hasanah   -   140810230021
+**Nazwa Nashatasya – 140810230019**  
+**Senia Nur Hasanah – 140810230021**
 
 ---
+
 ## 🪄 Deskripsi Singkat
 Aplikasi **Sistem Pendukung Keputusan (Decision Support System / DSS)** ini membantu pengguna dalam melakukan **Multi Criteria Decision Making (MCDM)** menggunakan beberapa metode populer, yaitu:
 
@@ -12,7 +12,8 @@ Aplikasi **Sistem Pendukung Keputusan (Decision Support System / DSS)** ini memb
 - **Analytical Hierarchy Process (AHP)**
 - **Technique for Order of Preference by Similarity to Ideal Solution (TOPSIS)**
 
-Aplikasi dibangun menggunakan **Streamlit**, sehingga dapat dijalankan secara interaktif melalui browser dan memudahkan pengguna dalam menganalisis alternatif berdasarkan kriteria yang ditentukan. Aplikasi ini juga menggunakan tampilan modern dengan **CSS eksternal** (`style.css`).
+Aplikasi dibangun menggunakan **Streamlit**, sehingga dapat dijalankan secara interaktif melalui browser dan memudahkan pengguna dalam menganalisis alternatif berdasarkan kriteria yang ditentukan.  
+Tampilan aplikasi menggunakan **CSS eksternal (`style.css`)** dengan desain modern dan lembut.
 
 ---
 
@@ -29,6 +30,9 @@ Tersedia empat metode **MCDM**, yaitu:
 
 > Pilih salah satu metode untuk digunakan dalam proses perhitungan.
 
+📸 **Ilustrasi:**
+![Langkah 1 - Pilih Metode](step1.png)
+
 ---
 
 ### 2️⃣ Pilih Metode Input Data
@@ -37,19 +41,18 @@ Masih di **sidebar**, pilih cara input data:
 - **Upload File (CSV/XLSX)** → jika data sudah disiapkan dalam file spreadsheet.  
 - **Input Manual** → jika ingin mengetikkan nilai langsung di dalam aplikasi.
 
+📸 **Ilustrasi:**
+![Langkah 2 - Pilih Metode Input](step2.png)
+
 ---
 
 ### 3️⃣ Struktur Data Input
 Setiap metode membutuhkan format file yang berbeda agar sistem dapat membaca data dengan benar.
 
----
-
 #### 🟢 Untuk SAW, WP, dan TOPSIS
 Metode ini membutuhkan **dua file** sebagai inputnya, yaitu:
 
 #### 1. Input Kriteria
-Format contoh:
-
 | Kode Kriteria | Bobot | Nama Kriteria | Atribut |
 | -------------- | ------ | -------------- | -------- |
 | C1             | 0.4    | Harga          | cost     |
@@ -57,45 +60,28 @@ Format contoh:
 | C3             | 0.3    | Pelayanan      | benefit  |
 
 #### 2. Input Alternatif
-Format contoh:
-
 | Kode Alternatif | C1   | C2 | C3 |
 | ---------------- | ---- | -- | -- |
 | A1               | 2000 | 7  | 8  |
 | A2               | 1800 | 6  | 7  |
 | A3               | 2200 | 8  | 9  |
 
+📸 **Ilustrasi:**
+![Langkah 3 - Struktur Data](step3.png)
+
 ---
 
 #### 🔵 Untuk AHP
 Metode AHP memerlukan **dua file** sebagai inputnya, yaitu:
 
-#### 1. Input Perbandingan Antar Kriteria
-Digunakan untuk menentukan seberapa penting satu kriteria dibandingkan yang lain.  
-Format contoh:
-   
-| Kode Kriteria | C01   | C02 | C03 | C04   | C05 | Nama Kriteria          | Atribut |
-| ------------- | ----- | --- | --- | ----- | --- | ---------------------- | ------- |
-| C01           | 1     | 1   | 3   | 1     | 3   | Jarak ke kos mahasiswa | Benefit |
-| C02           | 1     | 1   | 2   | 1     | 1   | Jarak ke kampus        | Benefit |
-| C03           | 0.333 | 0.5 | 1   | 1     | 2   | Jarak ke pujasera      | Benefit |
-| C04           | 1     | 1   | 1   | 1     | 1   | Biaya                  | Cost    |
-| C05           | 0.333 | 1   | 0.5 | 0.333 | 1   | Luas bangunan          | Benefit |
+1️⃣ **Input Perbandingan Antar Kriteria**  
+Menentukan seberapa penting satu kriteria dibandingkan yang lain.
 
+2️⃣ **Input Perbandingan Antar Alternatif (per Kriteria)**  
+Menentukan nilai perbandingan antar alternatif terhadap setiap kriteria.
 
-
-#### 2. Input Perbandingan Antar Alternatif (per Kriteria)
-Menentukan nilai perbandingan antar alternatif terhadap setiap kriteria.  
-Format contoh:
-   
-| Kode Alternatif | A01   | A02   | A03 | Nama Alternatif | Kriteria |
-| --------------- | ----- | ----- | --- | --------------- | -------- |
-| A01             | 1     | 3     | 3   | Lokasi 1        | C01      |
-| A02             | 0.333 | 1     | 2   | Lokasi 2        | C01      |
-| A03             | 0.333 | 0.5   | 1   | Lokasi 3        | C01      |
-| A01             | 1     | 2     | 4   | Lokasi 1        | C02      |
-| A02             | 0.5   | 1     | 3   | Lokasi 2        | C02      |
-| A03             | 0.25  | 0.333 | 1   | Lokasi 3        | C02      |
+📸 **Ilustrasi:**
+![Langkah 4 - Input File AHP](step4.png)
 
 ---
 
@@ -103,28 +89,110 @@ Format contoh:
 Setelah file diunggah atau data diinput secara manual:
 
 - Aplikasi akan **membaca data otomatis** dan menampilkan data yang telah diinput.
-- Setelah data terbaca, klik tombol **Hitung Ranking** untuk memproses pertihungannya.
-- Hasil Akhir dan langkah perhitungannya dapat dilihat ketika muncul **Perhitungan Selesai**.
-- Setiap metode memiliki langkah perhitungan berbeda:
+- Setelah data terbaca, klik tombol **Hitung Ranking**.
+- Hasil perhitungan dan langkah-langkah akan muncul di layar.
 
-| Metode | Langkah Utama |
-| ------- | -------------- |
-| **SAW** | Normalisasi nilai dan penjumlahan bobot untuk tiap alternatif. |
-| **WP** | Perkalian nilai kriteria yang dipangkatkan dengan bobot. |
-| **AHP** | Menghitung eigenvector, konsistensi rasio (CR), dan bobot kriteria. |
-| **TOPSIS** | Menghitung jarak positif/negatif dan nilai preferensi (V). |
+📸 **Ilustrasi:**
+![Langkah 5 - Proses Perhitungan](step5.png)
 
 ---
 
 ### 5️⃣ Hasil dan Visualisasi
-- Setelah proses selesai, hasil akan muncul dalam bentuk **Hasil Akhir**.
-- Dilengkapi dengan proses setiap **Langkah Perhitungan** hingga hasil akhir metodenya masing-masing.
+- Setelah proses selesai, hasil akan muncul dalam bagian **Hasil Akhir**.
+- Ditampilkan juga proses setiap **Langkah Perhitungan** dari metode yang digunakan.
+- Ranking dan skor akhir disusun berdasarkan metode terpilih.
+
+📸 **Ilustrasi:**
+![Langkah 6 - Hasil Akhir](step6.png)
+
+---
+
+### 6️⃣ Contoh Perhitungan SAW
+Langkah SAW meliputi:
+1. Matriks Keputusan Awal
+2. Normalisasi Matriks (Benefit/Cost)
+3. Perhitungan Skor V (V = Σ(wj * rij))
+4. Hasil Perankingan
+
+📸 **Ilustrasi:**
+![Langkah 7 - SAW](step7.png)
+
+---
+
+### 7️⃣ Contoh Perhitungan WP
+Langkah WP meliputi:
+1. Matriks Keputusan Awal 
+2. Normalisasi Bobot
+3. Penyesuaian Bobot (Atribut Cost bernilai negatif)
+4. Perhitungan Nilai S (S = ∏(xij^w))
+5. Perhitungan Nilai V (V = S / ΣS)
+6. Hasil Perankingan
+
+📸 **Ilustrasi:**
+![Langkah 8 - WP](step8.png)
+
+---
+
+### 8️⃣ Contoh Perhitungan AHP
+Langkah AHP meliputi:
+1. Matriks Perbandingan Kriteria 
+2. Normalisasi Matriks Kriteria
+3. Bobot Kriteria
+4. Uji Konsistensi Kriteria
+5. Matriks Perbandingan Alternatif 
+6. Normalisasi & Bobot Alternatif 
+7. Rata-rata Bobot Kriteria (dari langkah 1)
+8. Hasil Akhir AHP
+
+📸 **Ilustrasi:**
+![Langkah 9 - AHP](step9.png)
+
+---
+
+### 9️⃣ Contoh Perhitungan TOPSIS
+Langkah TOPSIS meliputi:
+1. Matriks Keputusan Awal
+2. Matriks Ternormalisasi (rij = xij / √(Σxij²))  
+3. Matriks Ternormalisasi Terbobot (yij = wj × rij)
+4. Solusi Ideal
+5. Jarak Separasi
+6. Kedekatan Relatif (V = D- / (D+ + D-))
+7. Hasil Perankingan
+
+📸 **Ilustrasi:**
+![Langkah 10 - TOPSIS](step10.png)
+
 ---
 
 ## 🧩 Contoh Alur Penggunaan
-1. Di sidebar, pilih salah satu metode yang ingin digunakan, misalnya metode **SAW**.
-3. Upload dua file: `kriteria.csv` dan `alternatif.csv`.
-4. Klik tombol **Hitung Ranking**.
-5. Lihat hasil ranking dan langkah perhitungannya di halaman utama.
+1. Di sidebar, pilih salah satu metode (misal **SAW**).
+2. Upload dua file: `kriteria.csv` dan `alternatif.csv`.
+3. Klik **Hitung Ranking**.
+4. Lihat hasil ranking dan proses lengkap di tampilan utama.
 
 ---
+
+## 🪶 Catatan
+- Aplikasi ini dirancang agar fleksibel: bisa menerima input file atau manual.  
+- Tampilan didesain pastel lembut untuk pengalaman visual yang nyaman.  
+- Dibangun menggunakan **Python + Streamlit**.
+
+---
+
+## 🖼️ Dokumentasi Langkah-langkah
+| Langkah | Gambar | Deskripsi |
+|----------|--------|------------|
+| 1 | ![step1](step1.png) | Pilih metode MCDM |
+| 2 | ![step2](step2.png) | Pilih cara input data |
+| 3 | ![step3](step3.png) | Lihat contoh format file |
+| 4 | ![step4](step4.png) | Upload file AHP atau lainnya |
+| 5 | ![step5](step5.png) | Proses perhitungan dimulai |
+| 6 | ![step6](step6.png) | Hasil sementara muncul |
+| 7 | ![step7](step7.png) | Hasil SAW ditampilkan |
+| 8 | ![step8](step8.png) | Hasil WP ditampilkan |
+| 9 | ![step9](step9.png) | Hasil AHP ditampilkan |
+| 10 | ![step10](step10.png) | Hasil TOPSIS ditampilkan |
+
+---
+
+✨ *DSS - Multi Criteria Decision Making (MCDM) by Nazwa & Senia (2025)* ✨
